@@ -6,6 +6,6 @@ prisub1id: subnet-01e84cc172da2618b
 prisub2id: subnet-0c4f1edb3a15eefc6
 prisub3id: subnet-0030032cb55f6e406
 igwid: igw-059dfe055e138270f
-pubrtid: rtb-09e7f278a38d0b84b
+pubrtid: rtb-0cd01d3652d8d8e26
 natgwid: nat-09985fcc6507517cd
-prirtid: rtb-01e4eacad04bc9b05
+prirtid: rtb-08bb4ef4b8963ca83

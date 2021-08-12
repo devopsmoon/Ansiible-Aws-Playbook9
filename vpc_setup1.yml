@@ -1,0 +1,153 @@
+- name: playbook for vpc setup
+  hosts: localhost
+  become: true
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: importing the varaibles files
+      include_vars: vars/vpcsetup
+
+    - name: creating the vpc subnet
+      ec2_vpc_net:
+        name: "{{vpc_name}}"
+        region: "{{region}}"
+        cidr_block: "{{vpccidr}}"
+        state: present
+        tenancy: default
+        dns_hostnames: false
+        dns_support: false
+      register: vpcout
+
+    - debug:
+        var: vpcout
+
+    - name: creating the vpc public subnet1
+      ec2_vpc_subnet:
+        vpc_id: "{{vpcout.vpc.id}}"
+        region: "{{region}}"
+        az: "{{zone1}}"
+        cidr: "{{pubsub1cidr}}"
+        state: present
+        map_public: yes
+        tags:
+          name: vrofile-pubsubnet1
+      register: pubsub1_out
+
+    - name: creating the vpc public subnet2
+      ec2_vpc_subnet:
+        vpc_id: "{{vpcout.vpc.id}}"
+        region: "{{region}}"
+        az: "{{zone2}}"
+        cidr: "{{pubsub2cidr}}"
+        state: present
+        map_public: yes
+        tags:
+          name: vprofile-pubsubnet2
+      register: pubsub2_out
+
+    - name: creating the vpc public subnet3
+      ec2_vpc_subnet:
+        vpc_id: "{{vpcout.vpc.id}}"
+        region: "{{region}}"
+        az: "{{zone3}}"
+        cidr: "{{pubusub3cidr}}"
+        state: present
+        map_public: yes
+        tags:
+          - name: vprofile-pubsubnet3
+      register: pubsub3_out
+
+    - name: creating the vpc private subnet1
+      ec2_vpc_subnet:
+        vpc_id: "{{vpcout.vpc.id}}"
+        region: "{{region}}"
+        az: "{{zone1}}"
+        cidr: "{{prisub1cidr}}"
+        state: present
+        tags:
+          Name: vprofile-prisubnet1
+      register: prisub1_out
+
+    - name: creating the vpc private subnet2
+      ec2_vpc_subnet:
+        vpc_id: "{{vpcout.vpc.id}}"
+        region: "{{region}}"
+        az: "{{zone2}}"
+        cidr: "{{prisub2cidr}}"
+        state: present
+        tags:
+          Name: vprofile-prisubnet2
+      register: prisub2_out
+
+    - name: creating the vpc private subnet3
+      ec2_vpc_subnet:
+        vpc_id: "{{vpcout.vpc.id}}"
+        region: "{{region}}"
+        az: "{{zone3}}"
+        cidr: "{{prisub3cidr}}"
+        state: present
+        tags:
+          Name: vprofile-prisubnet3
+      register: prisub3_out
+
+    - name: creating the internet gateway
+      ec2_vpc_igw:
+        vpc_id: "{{vpcout.vpc.id}}"
+        region: "{{region}}"
+        state: present
+        tags:
+          Name: vprofile-igw
+      register: igw_out
+
+    - name: creating the public route table
+      ec2_vpc_route_table:
+        vpc_id: "{{vpcout.vpc.id}}"
+        region: "{{region}}"
+        state: present
+        subnets:
+          - "{{pubsub1cidr.subnet.id}}"
+          - "{{pubsub2cidr.subnet.id}}"
+          - "{{pubsub3cidr.subnet.id}}"
+        routes:
+          - dest: 0.0.0.0/0
+            group_id: "{{igw_out.group_id}}"
+      register: pubrt_out
+
+    - name: creating th nat gateway
+      ec2_vpc_nat_gateway:
+        region: "{{region}}"
+        subnet_id: "{{pubsub1cidr.subnet.id}}"
+        wait: yes
+        wait_timeout: 300
+        state: present
+        if_exist_do_not_create: true
+      register: natgw_out
+
+    - name: creating the private route table
+      ec2_vpc_route_table:
+        vpc_id: "{{vpcout.vpc.id}}"
+        region: "{{region}}"
+        state: present
+        subnets:
+          - "{{prisub1cidr.subnet.id}}"
+          - "{{pirsub2cidr.subnet.id}}"
+          - "{{prisub3cidr.subnet.id}}"
+        routes:
+          - dest: 0.0.0.0/0
+            group_id: "{{natgw_out.nat_group.id}}"
+      register: prirt_out
+
+    - debug:
+        var: "{{items}}"
+      loop:
+        vpcout.vpc.id
+        pubsub1.subnet.id
+        pubsub2.subnet.id
+        pubsub3.subnet.id
+        igw_out.group_id
+        pubrt_out.route_table.id
+        natgw_out.gateway_id
+        prirt_out.nat_rout_table.id
+
+
+

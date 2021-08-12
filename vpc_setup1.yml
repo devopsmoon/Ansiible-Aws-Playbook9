@@ -50,7 +50,7 @@
         vpc_id: "{{vpcout.vpc.id}}"
         region: "{{region}}"
         az: "{{zone3}}"
-        cidr: "{{pubusub3cidr}}"
+        cidr: "{{pubsub3cidr}}"
         state: present
         map_public: yes
         tags:

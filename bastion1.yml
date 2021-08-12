@@ -47,6 +47,7 @@
         region: "{{region}}"
         instance_type: t2.micro
         image: "{{bastion_ami}}"
+        wait: yes
         instance_tags:
           Name: Bastion-host
           project: vprofile

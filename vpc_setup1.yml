@@ -153,18 +153,19 @@
         - prirt_out.route_table.id
 
       set_fact:
-        - vpcoutid: "{{vpcout.vpc.id}}"
-          pubsub1id: "{{pubsub1_out.subnet.id}}"
-          pubsub2id: "{{pubsub2_out.subnet.id}}"
-          pubsub3id: "{{pbusub3_out.subnet.id}}"
-          prisub1id: "{{prisub1_out.subnet.id}}"
-          prisub2id: "{{prisub2_out.subnet.id}}"
-          prisub3id: "{{prisub3_out.subnet.id}}"
-          igwid: "{{igw_out.gateway_id}}"
-          pubrtid: "{{pubrt_out.route_table.id}}"
-          natgwid: "{{natgw_out.nat_gatewayd_id}}"
-          prirtid: "{{prirt_out.route_table.id}}"
-          cacheable: yes
+        vpcoutid: "{{vpcout.vpc.id}}"
+        pubsub1id: "{{pubsub1_out.subnet.id}}"
+        pubsub2id: "{{pubsub2_out.subnet.id}}"
+        pubsub3id: "{{pbusub3_out.subnet.id}}"
+        prisub1id: "{{prisub1_out.subnet.id}}"
+        prisub2id: "{{prisub2_out.subnet.id}}"
+        prisub3id: "{{prisub3_out.subnet.id}}"
+        igwid: "{{igw_out.gateway_id}}"
+        pubrtid: "{{pubrt_out.route_table.id}}"
+        natgwid: "{{natgw_out.nat_gatewayd_id}}"
+        prirtid: "{{prirt_out.route_table.id}}"
+        cacheable: yes
+
 
     - name:
       copy:

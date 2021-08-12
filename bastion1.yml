@@ -45,7 +45,6 @@
       ec2:
         key_name: vprofile-key
         region: "{{region}}"
-        vpc_subnet_id: "{{pubsub1id}}"
         instance_type: t2.micro
         image: "{{bastion_ami}}"
         instance_tags:
@@ -58,5 +57,6 @@
           project: vprofile
           owner: Devopsteam
         group_id: "{{bastionsg_out.group_id}}"
+        vpc_subnet_id: "{{pubsub1id}}"
       register: Bastionhost_out
 

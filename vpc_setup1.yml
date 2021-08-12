@@ -130,7 +130,7 @@
         state: present
         subnets:
           - "{{prisub1cidr.subnet.id}}"
-          - "{{pirsub2cidr.subnet.id}}"
+          - "{{prIsub2cidr.subnet.id}}"
           - "{{prisub3cidr.subnet.id}}"
         routes:
           - dest: 0.0.0.0/0

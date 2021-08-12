@@ -156,7 +156,7 @@
         vpcoutid: "{{vpcout.vpc.id}}"
         pubsub1id: "{{pubsub1_out.subnet.id}}"
         pubsub2id: "{{pubsub2_out.subnet.id}}"
-        pubsub3id: "{{pbusub3_out.subnet.id}}"
+        pubsub3id: "{{pubsub3_out.subnet.id}}"
         prisub1id: "{{prisub1_out.subnet.id}}"
         prisub2id: "{{prisub2_out.subnet.id}}"
         prisub3id: "{{prisub3_out.subnet.id}}"

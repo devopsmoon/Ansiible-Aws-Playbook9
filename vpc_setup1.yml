@@ -105,9 +105,9 @@
         region: "{{region}}"
         state: present
         subnets:
-          - "{{pubsub1cidr.subnet.id}}"
-          - "{{pubsub2cidr.subnet.id}}"
-          - "{{pubsub3cidr.subnet.id}}"
+          - "{{pubsub1_out.subnet.id}}"
+          - "{{pubsub2_out.subnet.id}}"
+          - "{{pubsub3_out.subnet.id}}"
         routes:
           - dest: 0.0.0.0/0
             group_id: "{{igw_out.group_id}}"
@@ -129,9 +129,9 @@
         region: "{{region}}"
         state: present
         subnets:
-          - "{{prisub1cidr.subnet.id}}"
-          - "{{prIsub2cidr.subnet.id}}"
-          - "{{prisub3cidr.subnet.id}}"
+          - "{{prisub1_out.subnet.id}}"
+          - "{{prIsub2_out.subnet.id}}"
+          - "{{prisub3_out.subnet.id}}"
         routes:
           - dest: 0.0.0.0/0
             group_id: "{{natgw_out.nat_group.id}}"

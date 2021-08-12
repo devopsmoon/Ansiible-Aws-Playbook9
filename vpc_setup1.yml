@@ -110,7 +110,7 @@
           - "{{pubsub3_out.subnet.id}}"
         routes:
           - dest: 0.0.0.0/0
-            group_id: "{{igw_out.group_id}}"
+            gateway_id: "{{igw_out.gateway_id}}"
       register: pubrt_out
 
     - name: creating th nat gateway
@@ -134,7 +134,7 @@
           - "{{prisub3_out.subnet.id}}"
         routes:
           - dest: 0.0.0.0/0
-            group_id: "{{natgw_out.nat_group.id}}"
+            gateway_id: "{{natgw_out.nat_gateway_id}}"
       register: prirt_out
 
     - debug:
@@ -144,7 +144,7 @@
         pubsub1.subnet.id
         pubsub2.subnet.id
         pubsub3.subnet.id
-        igw_out.group_id
+        igw_out.gateway_id
         pubrt_out.route_table.id
         natgw_out.gateway_id
         prirt_out.nat_rout_table.id

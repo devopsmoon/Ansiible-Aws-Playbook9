@@ -54,7 +54,7 @@
         state: present
         map_public: yes
         tags:
-          - name: vprofile-pubsubnet3
+          Name: vprofile-pubsubnet3
       register: pubsub3_out
 
     - name: creating the vpc private subnet1

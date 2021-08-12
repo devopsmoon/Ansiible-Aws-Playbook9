@@ -150,7 +150,7 @@
         - igw_out.gateway_id
         - pubrt_out.route_table.id
         - natgw_out.nat_gateway_id
-        - prirt_out.nat_route_table.id
+        - prirt_out.route_table.id
 
 
 
